@@ -21,7 +21,7 @@ Run `pip3 install -r requirements.txt`.
 3. trivial things ...
 
 ## Preview
-![result](https://github.com/ybkim95/controlled-text-generation/img/result.png)
+![result](https://github.com/ybkim95/controlled-text-generation/blob/master/img/result.png)
 
 ## References
 1. Hu, Zhiting, et al. "Toward controlled generation of text." International Conference on Machine Learning. 2017. [[pdf](http://proceedings.mlr.press/v70/hu17e/hu17e.pdf)]
