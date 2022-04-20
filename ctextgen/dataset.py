@@ -1,4 +1,4 @@
-from torchtext import data, datasets
+from torchtext.legacy import data, datasets
 from torchtext.vocab import GloVe
 
 

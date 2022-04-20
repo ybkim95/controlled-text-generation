@@ -15,6 +15,9 @@ import argparse
 import random
 import time
 
+import warnings
+warnings.filterwarnings("ignore")
+
 
 parser = argparse.ArgumentParser(
     description='Conditional Text Generation'
@@ -63,7 +66,8 @@ c[0, 0], c[0, 1] = 1, 0
 _, c_idx = torch.max(c, dim=1)
 sample_idxs = model.sample_sentence(z, c, temp=0.1)
 
-print('\nSentiment: {}'.format(dataset.idx2label(int(c_idx))))
+print("\n[TEST RESULT]")
+print('Sentiment: {}'.format(dataset.idx2label(int(c_idx))))
 print('Generated: {}'.format(dataset.idxs2sentence(sample_idxs)))
 
 # Generate negative sample from the same z
@@ -98,6 +102,6 @@ for alpha in alphas:
     sample_idxs = model.sample_sentence(z, c, temp=0.1)
     sample_sent = dataset.idxs2sentence(sample_idxs)
 
-    print("{}".format(sample_sent))
+    print("(alpha: {:0.2f}) {}".format(alpha, sample_sent))
 
 print()

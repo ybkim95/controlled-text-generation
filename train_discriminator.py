@@ -93,10 +93,10 @@ def main():
         log_y_disc_fake = F.log_softmax(y_disc_fake, dim=1)
         entropy = -log_y_disc_fake.mean()
 
-        loss_s = F.cross_entropy(y_disc_real, labels)
-        loss_u = F.cross_entropy(y_disc_fake, target_c) + beta*entropy
+        loss_s = F.cross_entropy(y_disc_real, labels)                       # 
+        loss_u = F.cross_entropy(y_disc_fake, target_c) + beta*entropy      # minimum entropy regularization
 
-        loss_D = loss_s + lambda_u*loss_u
+        loss_D = loss_s + lambda_u*loss_u       # Eq. (11)
 
         loss_D.backward()
         grad_norm = torch.nn.utils.clip_grad_norm(model.discriminator_params, 5)
@@ -124,6 +124,7 @@ def main():
         trainer_G.step()
         trainer_G.zero_grad()
 
+
         """ Update encoder, eq. 4 """
         recon_loss, kl_loss = model.forward(inputs, use_c_prior=False)
 
@@ -133,6 +134,7 @@ def main():
         grad_norm = torch.nn.utils.clip_grad_norm(model.encoder_params, 5)
         trainer_E.step()
         trainer_E.zero_grad()
+
 
         if it % log_interval == 0:
             z = model.sample_z_prior(1)

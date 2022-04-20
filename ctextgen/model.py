@@ -49,7 +49,7 @@ class RNN_VAE(nn.Module):
         """
         Encoder is GRU with FC layers connected to last hidden unit
         """
-        self.encoder = nn.GRU(self.emb_dim, h_dim)
+        self.encoder = nn.GRU(self.emb_dim, h_dim) 
         self.q_mu = nn.Linear(h_dim, z_dim)
         self.q_logvar = nn.Linear(h_dim, z_dim)
 
@@ -294,7 +294,7 @@ class RNN_VAE(nn.Module):
             y = self.decoder_fc(output).view(-1)
             y = F.softmax(y/temp, dim=0)
 
-            idx = torch.multinomial(y)
+            idx = torch.multinomial(y, num_samples=1)
 
             word = Variable(torch.LongTensor([int(idx)]))
             word = word.cuda() if self.gpu else word
